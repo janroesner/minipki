@@ -5,5 +5,4 @@ basicConstraints      = CA:true,pathlen:2
 crlDistributionPoints = URI:http://opensc.charite.de/crl/rootca.crl
 nsCertType            = sslCA,emailCA,objCA
 nsCaPolicyUrl         = "http://opensc.charite.de/policy/policy.htm"
-nsCaRevocationUrl     = "http://opensc.charite.de/crl/rootca.crl"
 nsComment             = "OpenSC - Charite - testRootCA"
