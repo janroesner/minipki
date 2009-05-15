@@ -12,6 +12,6 @@ echo "rootCA certificate successfully issued"
 echo "Moving files"
 rm -f rootca.csr
 mv privkey.pem testCA/private
-mv rootca.pem testCA.cacert
+mv rootca.pem testCA/cacert
 cd ..
 
