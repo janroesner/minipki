@@ -1,0 +1,54 @@
+# 2007-07-01 - Author Jan Rösner <jan@roesner.it>
+# openssl commands for building and driving a rootca
+# using opensc and pkcs#11 engine
+
+# 0. initialize openssl's pkcs11 engine using the pkcs#11 lib from opensc
+
+engine -t dynamic -pre SO_PATH:/usr/lib/engines/engine_pkcs11.so -pre ID:pkcs11 -pre LIST_ADD:1 -pre LOAD -pre MODULE_PATH:/usr/lib/opensc-pkcs11.so
+
+# 1. request an initial root certificate using a private key on a smartcard
+
+req -new -outform PEM -out rootca.csr -keyform engine -engine pkcs11 -key 2:45 -config ca.config
+
+# 2. sign rootca request and generate the initial rootca certificate
+
+x509 -days 3653 -extfile ca.ext -keyform engine -engine pkcs11 -signkey 2:45 -in rootca.csr -req -out rootca.crt
+
+# 3. install newly created certificate on smartcard (df01/4331) using pin1:123456
+
+netkey-tool --pin1 123456 cert rootca.crt 1
+
+###################################################################################################################
+###################################################################################################################
+# use the follwing steps if you want to drive your subca by openssl too
+###################################################################################################################
+###################################################################################################################
+
+# 4. generating a private key for an openssl subca (not part of this demo)
+
+genrsa -des3 -out subprivkey.pem 1024
+
+# 5. request first subca certificate using previously generated private key (not part of this demo)
+
+req -new -outform PEM -out subreq.pem -key subprivkey.pem -config ca.config
+
+# 6. sign the subca's request using the previously generated root certificate
+
+echo -ne '01' > ca.serial
+
+###################################################################################################################
+###################################################################################################################
+# end
+###################################################################################################################
+###################################################################################################################
+
+ca -days 731 -config ca.config -extfile subca.ext -out subca.crt -in subreq.pem -keyform engine -engine pkcs11 -keyfile 2:45 -md sha1
+
+# 7. issue a certificate revocation list with rootca
+
+ca -gencrl -config crl.config -out rootca.crl -keyform engine -engine pkcs11 -keyfile 2:45 -md sha1
+
+# 8. revoke a certificate with rootca
+
+ca -revoke path/to/certificate.pem -crl_reason affiliationChanged -keyform engine -engine pkcs11 -keyfile 2:45 -config crl.config -md sha1
+
