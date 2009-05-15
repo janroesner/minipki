@@ -12,6 +12,8 @@ openssl req -new -outform PEM -out subca.csr -key privkey.pem -config ca.config
 
 ################################################################################################
 # now get this request signed by the root
+# copy privkey.pem to testCA/private
+# and copy issued subca.pem to testCA/cacert.pem
 ################################################################################################
 
 
