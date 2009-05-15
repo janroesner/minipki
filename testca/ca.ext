@@ -2,8 +2,8 @@ extensions = x509v3
 
 [ x509v3 ]
 basicConstraints      = CA:true,pathlen:1
-crlDistributionPoints = URI:http://www.cdp.dom/crls/ca.crl
+crlDistributionPoints = URI:http://opensc.charite.de/crl/rootca.crl
 nsCertType            = sslCA,emailCA,objCA
-nsCaPolicyUrl         = "http://www.pki.dom/ca/policy.htm"
-nsCaRevocationUrl     = "http://www.cdp2.dom/crls/ca.crl"
-nsComment             = "MailConf testCA"
+nsCaPolicyUrl         = "http://opensc.charite.de/policy/policy.htm"
+nsCaRevocationUrl     = "http://opensc.charite.de/crl/rootca.crl"
+nsComment             = "OpenSC - Charite - testRootCA"
