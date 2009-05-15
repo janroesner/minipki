@@ -1,0 +1,17 @@
+# 2009-05-15 - Author Jan Rösner <jan@roesner.it>
+# openssl commands for building and driving a subca
+# using soft certificates
+
+# 1. generate private key for the subca certificate 2048 bit
+
+openssl genrsa -des3 -out privkey.pem 2048
+
+# 2. request an initial subca certificate using this private key            
+
+openssl req -new -outform PEM -out subca.csr -key privkey.pem -config ca.config
+
+################################################################################################
+# now get this request signed by the root
+################################################################################################
+
+

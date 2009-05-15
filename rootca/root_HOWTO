@@ -6,7 +6,7 @@
 
 openssl genrsa -des3 -out privkey.pem 2048
 
-# 2. request an initial root certificate using a private key on a smartcard
+# 2. request an initial root certificate using this private key
 
 openssl req -new -outform PEM -out rootca.csr -key privkey.pem -config ca.config
 
@@ -14,3 +14,15 @@ openssl req -new -outform PEM -out rootca.csr -key privkey.pem -config ca.config
 
 openssl x509 -days 3653 -extfile ca.ext -signkey privkey.pem -in rootca.csr -req -out rootca.pem
 
+################################################################################################
+# now switch to the subCA, generate keypair and request
+# copy the generated request from subca to rootca
+################################################################################################
+
+# 4. sign the subca's request using the previously generated root certificate
+
+openssl ca -days 731 -config ca.config -extfile subca.ext -out subca.pem -in subca.csr -keyfile testCA/private/privkey.pem -md sha1
+
+# 5. issue an initial certificate revocation list with rootca
+
+openssl ca -gencrl -config crl.config -out rootca.crl -keyfile testCA/private/privkey.pem -md sha1
