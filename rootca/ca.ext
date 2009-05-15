@@ -1,7 +1,7 @@
 extensions = x509v3
 
 [ x509v3 ]
-basicConstraints      = CA:true,pathlen:1
+basicConstraints      = CA:true,pathlen:2
 crlDistributionPoints = URI:http://opensc.charite.de/crl/rootca.crl
 nsCertType            = sslCA,emailCA,objCA
 nsCaPolicyUrl         = "http://opensc.charite.de/policy/policy.htm"
