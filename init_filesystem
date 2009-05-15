@@ -1,0 +1,3 @@
+echo "Initializing filesystem for rootCA and subCA"
+tar xjvf filesystem.tar.bz2
+echo "Successfully initialized filesystem"
