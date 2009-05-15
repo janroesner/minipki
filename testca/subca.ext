@@ -1,0 +1,12 @@
+extensions = x509v3
+
+[ x509v3 ]
+basicConstraints=critical,CA:TRUE
+keyUsage = cRLSign, keyCertSign
+nsComment               = "mailconf testing SubCA"
+# PKIX recommendations
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid,issuer:always
+# Copy subject details
+issuerAltName=issuer:copy
+crlDistributionPoints   = URI:http://www.yourhost.dom/crls/subcacrl.crl
