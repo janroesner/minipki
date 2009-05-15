@@ -1,0 +1,9 @@
+echo "Attempting to revoke subca certifikate"
+cd rootca
+openssl ca -config ca.config -revoke testCA/newcerts/01.pem -keyfile testCA/private/privkey.pem -cert testCA/cacert.pem -md sha1
+echo "SubCA certificate successfully revoked"
+echo "Issuing new CRl for rootCA now"
+openssl ca -gencrl -config crl.config -out rootca.crl -keyfile testCA/private/privkey.pem -md sha1
+mv rootca.crl testCA/crl
+echo "CRL for rootCA successfully issued"
+cd ..
