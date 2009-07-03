@@ -1,0 +1,11 @@
+echo "Switching to subCA"
+echo "Make sure user.csr exists in subca!!!"
+cd subca
+echo "Issuing user certificate"
+openssl ca -days 731 -config ca.config -extfile user.ext -out user.pem -in user.csr -keyfile testCA/private/privkey.pem -md sha1
+echo "User certificate successfully issued"
+echo "Issuing new CRL with subCA"
+openssl ca -gencrl -config crl.config -out subca.crl -keyfile testCA/private/privkey.pem -md sha1
+mv subca.crl testCA/crl
+echo "CRL successfully issued"
+cd ..

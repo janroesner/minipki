@@ -1,0 +1,3 @@
+echo "Exporting recent user certificate to PKCS#7"
+openssl crl2pkcs7 -outform der -out user.p7c -certfile subca/user.pem -in subca/user.pem -nocrl
+echo "User certificate successfully exported and stored as user.p7c"
