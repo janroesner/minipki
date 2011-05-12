@@ -1,0 +1,21 @@
+extensions = x509v3
+
+[ x509v3 ]
+
+basicConstraints=critical,CA:FALSE
+nsCertType = client, email, objsign
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+nsComment               = "OpenSC - Charite - logon certificate"
+
+# PKIX recommendations
+subjectKeyIdentifier=hash
+subjectAltName=email:copy
+authorityKeyIdentifier=keyid,issuer:always
+
+# Copy subject details
+issuerAltName=issuer:copy
+crlDistributionPoints   = @cdp_section
+
+[ cdp_section ]
+
+		URI.1=http://opensc.charite.de/crl/subca.crl

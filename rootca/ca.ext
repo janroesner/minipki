@@ -1,0 +1,8 @@
+extensions = x509v3
+
+[ x509v3 ]
+basicConstraints      = CA:true,pathlen:2
+#crlDistributionPoints = URI:
+nsCertType            = sslCA,emailCA,objCA
+nsCaPolicyUrl         = "http://dimdi.org/cps.txt"
+nsComment             = "DIMDI-RootCA-2011"
