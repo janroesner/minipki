@@ -7,7 +7,7 @@ echo "Generating initial rootCA request"
 openssl req -new -outform PEM -out rootca.csr -key privkey.pem -config ca.config
 echo "Request successfully generated"
 echo "Issuing rootCA certificate"
-openssl x509 -days 10957 -extfile ca.ext -signkey privkey.pem -in rootca.csr -req -out rootca.pem
+openssl x509 -days 9131 -extfile ca.ext -signkey privkey.pem -in rootca.csr -req -out rootca.pem
 echo "rootCA certificate successfully issued"
 echo "Moving files"
 rm -f rootca.csr
