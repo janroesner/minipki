@@ -1,7 +1,7 @@
 cd rootca
 echo "Initializing rootCA"
 echo "Generating keypair ..."
-openssl genrsa -aes -out privkey.pem 4096
+openssl genrsa -des3 -out privkey.pem 4096
 echo "Keypair successfully generated"
 echo "Generating initial rootCA request"
 openssl req -new -outform PEM -out rootca.csr -key privkey.pem -config ca.config
