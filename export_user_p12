@@ -1,3 +1,0 @@
-echo "Exporting recent user certificate to PKCS#12"
-openssl pkcs12 -export -inkey subca/privkey.pem -certfile subca/user.pem -in subca/user.pem -name user -des3 -out user.p12
-echo "User certificate successfully exported and stored as user.p12"

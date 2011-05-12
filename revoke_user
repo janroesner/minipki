@@ -1,9 +1,0 @@
-echo "Attempting to revoke user certifikate"
-cd subca
-openssl ca -config ca.config -revoke testCA/newcerts/01.pem -keyfile testCA/private/privkey.pem -cert testCA/cacert.pem -md sha1
-echo "User certificate successfully revoked"
-echo "Issuing new CRl for subCA now"
-openssl ca -gencrl -config crl.config -out subca.crl -keyfile testCA/private/privkey.pem -md sha1
-mv subca.crl testCA/crl
-echo "CRL for subCA successfully issued"
-cd ..
