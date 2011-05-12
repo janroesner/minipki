@@ -1,0 +1,32 @@
+cd subca
+echo "Initializing subCA"
+echo "Generating keypair"
+openssl genrsa -des3 -out privkey.pem 2048
+echo "Keypair successfully generated"
+echo "Generating subCA certificate request"
+openssl req -new -outform PEM -out subca.csr -key privkey.pem -config ca.config
+echo "SubCA certificate request successfully generated"
+################################################################################################
+# now get this request signed by the root
+# copy privkey.pem to testCA/private
+# and copy issued subca.pem to testCA/cacert.pem
+################################################################################################
+mv subca.csr ../rootca
+echo "Certificate request was deliverd to rootca"
+cd ../rootca
+echo "Issuing of the subCA certificate"
+openssl ca -days 731 -config ca.config -extfile subca.ext -out subca.pem -in subca.csr -keyfile testCA/private/privkey.pem -md sha1
+echo "SubCA certificate successfully issued"
+echo "Issuing a new CRL for rootCA"
+openssl ca -gencrl -config crl.config -out rootca.crl -keyfile testCA/private/privkey.pem -md sha1
+mv rootca.crl testCA/crl
+echo "CRL for rootCA successfully issued"
+echo "Finalizing subCA"
+mv subca.pem ../subca/testCA/cacert.pem
+rm -f subca.csr
+cd ../subca
+mv privkey.pem testCA/private
+echo "Successfully finalized subCA"
+cd ..
+
+
