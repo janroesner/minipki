@@ -1,12 +1,12 @@
-cd subca
-echo "Certificate request was deliverd to rootca"
-cd ../rootca
+cp subca.csr rootca/
+cd rootca
 echo "Issuing of the subCA certificate"
-openssl ca -days 9131 -config ca.config -extfile subca.ext -out subca.pem -in subca.csr -keyfile DIMDI-RootCA-2011/private/privkey.pem -md sha1
+openssl ca -days 9131 -config ca.config -extfile subca.ext -out subca.pem -in subca.csr -keyfile DIMDI-RootCA-2011/private/privkey.pem -md sha256
 echo "SubCA certificate successfully issued"
 echo "Issuing a new CRL for rootCA"
-openssl ca -gencrl -config crl.config -out rootca.crl -keyfile DIMDI-RootCA-2011/private/privkey.pem -md sha1
+openssl ca -gencrl -config crl.config -out rootca.crl -keyfile DIMDI-RootCA-2011/private/privkey.pem -md sha256
 mv rootca.crl DIMDI-RootCA-2011/crl
 echo "CRL for rootCA successfully issued"
 echo "Finalizing subCA"
-mv subca.pem ../subca/DIMDI-RootCA-2011/cacert.pem
+mv subca.pem ../
+rm -f subca.csr 
