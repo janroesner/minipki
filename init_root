@@ -11,7 +11,7 @@ openssl x509 -days 7305 -extfile ca.ext -signkey privkey.pem -in rootca.csr -req
 echo "rootCA certificate successfully issued"
 echo "Moving files"
 rm -f rootca.csr
-mv privkey.pem testCA/private/privkey.pem
-mv rootca.pem testCA/cacert.pem
+mv privkey.pem DIMDI-RootCA-2011/private/privkey.pem
+mv rootca.pem DIMDI-RootCA-2011/cacert.pem
 cd ..
 
