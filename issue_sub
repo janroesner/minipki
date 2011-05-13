@@ -6,6 +6,7 @@ echo "SubCA certificate successfully issued"
 echo "Issuing a new CRL for rootCA"
 openssl ca -gencrl -config crl.config -out rootca.crl -keyfile DIMDI-RootCA-2011/private/privkey.pem -md sha256
 mv rootca.crl DIMDI-RootCA-2011/crl
+cp DIMDI-RootCA-2011/crl/rootca.crl ../crl.pem
 echo "CRL for rootCA successfully issued"
 echo "Finalizing subCA"
 mv subca.pem ../

@@ -1,9 +1,10 @@
 echo "Attempting to revoke subca certifikate"
 cd rootca
-openssl ca -config ca.config -revoke DIMDI-RootCA-2011/newcerts/01.pem -keyfile DIMDI-RootCA-2011/private/privkey.pem -cert DIMDI-RootCA-2011/cacert.pem -md sha1
+openssl ca -config ca.config -revoke DIMDI-RootCA-2011/newcerts/02.pem -keyfile DIMDI-RootCA-2011/private/privkey.pem -cert DIMDI-RootCA-2011/cacert.pem -md sha256
 echo "SubCA certificate successfully revoked"
 echo "Issuing new CRL for rootCA now"
-openssl ca -gencrl -config crl.config -out rootca.crl -keyfile DIMDI-RootCA-2011/private/privkey.pem -md sha1
+openssl ca -gencrl -config crl.config -out rootca.crl -keyfile DIMDI-RootCA-2011/private/privkey.pem -md sha256
 mv rootca.crl DIMDI-RootCA-2011/crl
+cp DIMDI-RootCA-2011/crl/rootca.crl ../crl.pem
 echo "CRL for rootCA successfully issued"
 cd ..
