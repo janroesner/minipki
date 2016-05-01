@@ -15,10 +15,10 @@ mv subca.csr ../rootca
 echo "Certificate request was deliverd to rootca"
 cd ../rootca
 echo "Issuing of the subCA certificate"
-openssl ca -days 731 -config ca.config -extfile subca.ext -out subca.pem -in subca.csr -keyfile testCA/private/privkey.pem -md sha1
+openssl ca -days 731 -config ca.config -extfile subca.ext -out subca.pem -in subca.csr -keyfile testCA/private/privkey.pem -md sha256
 echo "SubCA certificate successfully issued"
 echo "Issuing a new CRL for rootCA"
-openssl ca -gencrl -config crl.config -out rootca.crl -keyfile testCA/private/privkey.pem -md sha1
+openssl ca -gencrl -config crl.config -out rootca.crl -keyfile testCA/private/privkey.pem -md sha256
 mv rootca.crl testCA/crl
 echo "CRL for rootCA successfully issued"
 echo "Finalizing subCA"

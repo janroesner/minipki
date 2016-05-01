@@ -8,10 +8,10 @@ echo "Generating certificate request for user certificate"
 openssl req -new -outform PEM -out user.csr -key privkey.pem -config ca.config
 echo "Request successfully generated"
 echo "Issuing user certificate"
-openssl ca -days 731 -config ca.config -extfile user.ext -out user.pem -in user.csr -keyfile testCA/private/privkey.pem -md sha1
+openssl ca -days 731 -config ca.config -extfile user.ext -out user.pem -in user.csr -keyfile testCA/private/privkey.pem -md sha256
 echo "User certificate successfully issued"
 echo "Issuing new CRL with subCA"
-openssl ca -gencrl -config crl.config -out subca.crl -keyfile testCA/private/privkey.pem -md sha1
+openssl ca -gencrl -config crl.config -out subca.crl -keyfile testCA/private/privkey.pem -md sha256
 mv subca.crl testCA/crl
 echo "CRL successfully issued"
 cd ..

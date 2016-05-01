@@ -42,13 +42,16 @@ echo -ne '01' > ca.serial
 ###################################################################################################################
 ###################################################################################################################
 
-ca -days 731 -config ca.config -extfile subca.ext -out subca.crt -in subreq.pem -keyform engine -engine pkcs11 -keyfile 2:45 -md sha1
+ca -days 731 -config ca.config -extfile subca.ext -out subca.crt -in
+subreq.pem -keyform engine -engine pkcs11 -keyfile 2:45 -md sha256
 
 # 7. issue a certificate revocation list with rootca
 
-ca -gencrl -config crl.config -out rootca.crl -keyform engine -engine pkcs11 -keyfile 2:45 -md sha1
+ca -gencrl -config crl.config -out rootca.crl -keyform engine -engine pkcs11
+-keyfile 2:45 -md sha256
 
 # 8. revoke a certificate with rootca
 
-ca -revoke path/to/certificate.pem -crl_reason affiliationChanged -keyform engine -engine pkcs11 -keyfile 2:45 -config crl.config -md sha1
+ca -revoke path/to/certificate.pem -crl_reason affiliationChanged -keyform
+engine -engine pkcs11 -keyfile 2:45 -config crl.config -md sha256
 
