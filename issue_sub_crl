@@ -1,7 +1,6 @@
 echo "Issuing new CRL with subCA"
 cd subca
-openssl ca -gencrl -config crl.config -out subca.crl -keyfile testCA/private/privkey.pem -md sha256
+openssl ca -gencrl -config crl.config -out subca.crl -keyfile testCA/private/privkey.pem -sha256
 mv subca.crl testCA/crl
 echo "CRL successfully issued for subCA"
 cd ..
-

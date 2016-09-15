@@ -28,5 +28,3 @@ cd ../subca
 mv privkey.pem testCA/private
 echo "Successfully finalized subCA"
 cd ..
-
-

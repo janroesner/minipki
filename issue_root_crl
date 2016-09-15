@@ -1,7 +1,6 @@
 echo "Issuing new CRL with rootCA"
 cd rootca
-openssl ca -gencrl -config crl.config -out rootca.crl -keyfile testCA/private/privkey.pem -md sha256
+openssl ca -gencrl -config crl.config -out rootca.crl -keyfile testCA/private/privkey.pem -sha256
 mv rootca.crl testCA/crl
 echo "CRL successfully issued for rootCA"
 cd ..
-
